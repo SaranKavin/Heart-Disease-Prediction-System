@@ -85,8 +85,14 @@ elif probability > 0.3:
 - Improve model accuracy with more data.
 - Deploy the model online.
 
-## 📜 License
-This project is licensed under the **MIT License**.
+![{9F83B820-63C6-4DFE-991A-6076311A21B1}](https://github.com/user-attachments/assets/91f290de-1759-49c4-b172-cdc3c7284cd8)
+
+![{6869E2F7-27A7-4F9E-862D-4F61B9EE7390}](https://github.com/user-attachments/assets/5bc048b0-c4fe-4b2e-aabc-8a2c9ce1e99e)
+
+![Uploading {F80304BD-782A-457C-BB90-9CAA83599A6D}.png…]()
+
+
+
 
 ---
 🔥 **Developed by SARAN** 🚀
