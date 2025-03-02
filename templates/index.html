@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction System</title>
+    <meta name="description" content="A web-based application that uses machine learning to predict the likelihood of heart disease based on user-provided health information.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="bg-gradient-to-r from-red-600 to-red-800 text-white p-6 shadow-lg">
+        <div class="container mx-auto flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+            </svg>
+            <h1 class="text-3xl font-bold">Heart Disease Prediction System</h1>
+        </div>
+        <p class="text-center mt-2 text-white/80 max-w-2xl mx-auto">
+            Enter your health information below to assess your risk of heart disease
+        </p>
+    </header>
+    
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="flex items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                    </svg>
+                    <h2 class="text-xl font-semibold">About This Tool</h2>
+                </div>
+                <p class="text-gray-700 mb-4">
+                    This Heart Disease Prediction System uses machine learning to estimate your risk of heart disease based on various health factors. 
+                    The prediction is based on a logistic regression model trained on heart disease data.
+                </p>
+                <div class="bg-blue-50 border border-blue-200 rounded-md p-4 flex items-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500 mr-2 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    <p class="text-sm text-blue-700">
+                        <strong>Disclaimer:</strong> This tool is for educational purposes only and should not be used as a substitute for professional medical advice, 
+                        diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-8">
+                <section>
+                    <h2 class="text-2xl font-bold mb-4">Enter Your Health Information</h2>
+                    <form id="predictionForm" class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Age</label>
+                                <input
+                                    type="number"
+                                    name="age"
+                                    value="45"
+                                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    required
+                                    min="1"
+                                    max="120"
+                                >
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Gender</label>
+                                <select
+                                    name="sex"
+                                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    required
+                                >
+                                    <option value="0">Female</option>
+                                    <option value="1" selected>Male</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Chest Pain Type</label>
+                                <select
+                                    name="cp"
+                                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    required
+                                >
+                                    <option value="0" selected>Typical Angina</option>
+                                    <option value="1">Atypical Angina</option>
+                                    <option value="2">Non-anginal Pain</option>
+                                    <option value="3">Asymptomatic</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Resting Blood Pressure (mm Hg)</label>
+                                <input
+                                    type="number"
+                                    name="trestbps"
+                                    value="120"
+                                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    required
+                                    min="80"
+                                    max="200"
+                                >
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Serum Cholesterol (mg/dl)</label>
+                                <input
+                                    type="number"
+                                    name="chol"
+                                    value="200"
+                                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    required
+                                    min="100"
+                                    max="600"
+                                >
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Fasting Blood Sugar > 120 mg/dl</label>
+                                <select
+                                    name="fbs"
+                                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    required
+                                >
+                                    <option value="0" selected>No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Resting ECG Results</label>
+                                <select
+                                    name="restecg"
+                                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    required
+                                >
+                                    <option value="0" selected>Normal</option>
+                                    <option value="1">ST-T Wave Abnormality</option>
+                                    <option value="2">Left Ventricular Hypertrophy</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Maximum Heart Rate</label>
+                                <input
+                                    type="number"
+                                    name="thalach"
+                                    value="150"
+                                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    required
+                                    min="60"
+                                    max="220"
+                                >
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Exercise Induced Angina</label>
+                                <select
+                                    name="exang"
+                                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    required
+                                >
+                                    <option value="0" selected>No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">ST Depression Induced by Exercise</label>
+                                <input
+                                    type="number"
+                                    name="oldpeak"
+                                    value="0"
+                                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    required
+                                    step="0.1"
+                                    min="0"
+                                    max="10"
+                                >
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Slope of Peak Exercise ST Segment</label>
+                                <select
+                                    name="slope"
+                                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    required
+                                >
+                                    <option value="0">Upsloping</option>
+                                    <option value="1" selected>Flat</option>
+                                    <option value="2">Downsloping</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Number of Major Vessels</label>
+                                <select
+                                    name="ca"
+                                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    required
+                                >
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Thalassemia</label>
+                                <select
+                                    name="thal"
+                                    class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    required
+                                >
+                                    <option value="0" selected>Normal</option>
+                                    <option value="1">Fixed Defect</option>
+                                    <option value="2">Reversible Defect</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 flex justify-center">
+                            <button
+                                type="submit"
+                                id="predictBtn"
+                                class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 flex items-center"
+                            >
+                                Predict Risk
+                            </button>
+                        </div>
+                    </form>
+                </section>
+                
+                <section id="resultSection" class="hidden">
+                    <h2 class="text-2xl font-bold mb-4">Prediction Results</h2>
+                    <div id="predictionResult"></div>
+                </section>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2025 Heart Disease Prediction System</p>
+            <p class="text-gray-400 text-sm mt-2">
+                This is a demonstration project and should not be used for actual medical diagnosis.
+            </p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
