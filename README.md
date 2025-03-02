@@ -1,81 +1,93 @@
-# Heart Disease Prediction System (Python Version)
+# Heart Disease Prediction
 
-A web-based application that uses machine learning to predict the likelihood of heart disease based on user-provided health information.
+## 📌 Project Overview
+This project is a **Heart Disease Prediction System** using **Machine Learning and Flask**. It takes user health data as input and predicts the likelihood of heart disease, categorizing the risk into **Low Risk, Moderate Risk, or High Risk** based on probability scores.
 
-## Features
+## 🚀 Features
+- Machine Learning Model trained on a heart disease dataset.
+- Flask API for predictions.
+- User-friendly input form for health details.
+- Risk classification into **Low, Moderate, or High** based on probability.
 
-- Interactive web form for entering health data
-- Real-time prediction using a machine learning model
-- Risk assessment with personalized recommendations
-- Responsive design for all devices
+## 🛠️ Tech Stack
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Python (Flask)
+- **Machine Learning**: Scikit-learn, Pandas, NumPy
 
-## Technology Stack
+## 📥 Setup & Installation
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/your-repo/heart-disease-predictor.git
+cd heart-disease-predictor
+```
 
-- **Backend**: Python, Flask
-- **Frontend**: HTML, CSS, JavaScript, TailwindCSS
-- **Machine Learning**: NumPy for calculations
+### 2️⃣ Create and Activate a Virtual Environment
+```bash
+python -m venv venv
+# Activate on Windows
+venv\Scripts\activate
+# Activate on macOS/Linux
+source venv/bin/activate
+```
 
-## How It Works
+### 3️⃣ Install Dependencies
+```bash
+pip install -r requirements.txt
+```
 
-1. The user enters their health information through the web form
-2. The data is sent to the Flask backend
-3. The data is preprocessed and normalized
-4. A logistic regression model makes a prediction
-5. Results are displayed with risk level and recommendations
+### 4️⃣ Train the Machine Learning Model
+Run the following script to train the model and save it:
+```bash
+python train_model.py
+```
+This will generate `model.pkl` and `scaler.pkl`.
 
-## Model Information
+### 5️⃣ Start the Flask Server
+```bash
+python app.py
+```
 
-The prediction model is a logistic regression classifier that considers the following factors:
+### 6️⃣ Open in Browser
+Visit `http://127.0.0.1:5000/` to access the app.
 
-- Age
-- Gender
-- Chest pain type
-- Resting blood pressure
-- Serum cholesterol
-- Fasting blood sugar
-- Resting ECG results
-- Maximum heart rate
-- Exercise-induced angina
-- ST depression induced by exercise
-- Slope of the peak exercise ST segment
-- Number of major vessels colored by fluoroscopy
-- Thalassemia
+Here is the table format for input values corresponding to **Low Risk, Moderate Risk, and High Risk** predictions:  
 
-## Development
+| **Parameter**                     | **Low Risk**                       | **Moderate Risk**                   | **High Risk**                        |
+|------------------------------------|------------------------------------|------------------------------------|------------------------------------|
+| **Age**                            | 25                                 | 50                                 | 65                                 |
+| **Gender**                         | Male                               | Male                               | Male                               |
+| **Chest Pain Type**                | Asymptomatic                       | Atypical Angina                    | Typical Angina                     |
+| **Resting Blood Pressure (mm Hg)** | 120                                | 140                                | 160                                |
+| **Serum Cholesterol (mg/dl)**      | 150                                | 220                                | 280                                |
+| **Fasting Blood Sugar > 120 mg/dl**| No                                 | No                                 | Yes                                |
+| **Resting ECG Results**            | Normal                             | ST-T Wave Abnormality              | Left Ventricular Hypertrophy       |
+| **Maximum Heart Rate**             | 150                                | 130                                | 110                                |
+| **Exercise Induced Angina**        | No                                 | No                                 | Yes                                |
+| **ST Depression Induced by Exercise** | 0                              | 1.5                                | 3.2                                |
+| **Slope of Peak Exercise ST Segment** | Flat                           | Upsloping                          | Downsloping                        |
+| **Number of Major Vessels**        | 0                                  | 1                                  | 3                                  |
+| **Thalassemia**                    | Normal                             | Fixed Defect                       | Reversible Defect                  |
+| **Predicted Risk**                 | Low Risk                           | Moderate Risk                      | High Risk                          |
 
-### Prerequisites
+This table clearly differentiates input values for different levels of heart disease risk prediction. 
 
-- Python 3.7 or higher
-- pip (Python package manager)
+## 💡 How the Risk is Determined
+```python
+risk = "Low Risk"
+if probability > 0.7:
+    risk = "High Risk"
+elif probability > 0.3:
+    risk = "Moderate Risk"
+```
 
-### Installation
+## ⚡ Future Enhancements
+- Add more visualization for user reports.
+- Improve model accuracy with more data.
+- Deploy the model online.
 
-1. Clone the repository
-2. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-3. Start the development server:
-   ```
-   python app.py
-   ```
-4. Open your browser and navigate to `http://127.0.0.1:5000`
+## 📜 License
+This project is licensed under the **MIT License**.
 
-## Deployment
+---
+🔥 **Developed by SARAN** 🚀
 
-This application can be deployed to platforms like Heroku, Render, or PythonAnywhere.
-
-### Deployment Steps
-
-1. Create an account on your preferred hosting platform
-2. Connect your repository
-3. Set up the environment variables if needed
-4. Deploy the application
-
-## Disclaimer
-
-This application is for educational purposes only and should not be used as a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
-
-## License
-
-MIT
